@@ -4,6 +4,7 @@ import json
 from boto.exception import BotoServerError
 import re
 from django.db import models
+from django.conf import settings
 from scarface.platform_strategy import get_strategies
 from scarface.utils import DefaultConnection, PushLogger
 from scarface.exceptions import SNSNotCreatedException, PlatformNotSupported, \
@@ -351,9 +352,23 @@ class Platform(SNSCRUDMixin, models.Model):
     @property
     def attributes(self):
         return {
-            "PlatformCredential": self.credential,
-            "PlatformPrincipal": self.principal
+            "PlatformCredential": self.get_platform_credential(),
+            "PlatformPrincipal": self.get_platform_principal()
         }
+        
+    def get_platform_credential(self):
+        if self.credential or self.credential != '':
+            return self.credential
+        if hasattr(settings, 'SCARFACE_APNS_PRIVATE_KEY'):
+            return settings.SCARFACE_APNS_PRIVATE_KEY
+        return None
+
+    def get_platform_principal(self):
+        if self.principal or self.principal != '':
+            return self.principal
+        if hasattr(settings, 'SCARFACE_APNS_CERTIFICATE'):
+            return settings.SCARFACE_APNS_CERTIFICATE
+        return None
 
     @DefaultConnection
     def register(self, connection=None):
