@@ -351,20 +351,22 @@ class Platform(SNSCRUDMixin, models.Model):
 
     @property
     def attributes(self):
+        credential = self.get_platform_credential()
+        principal = self.get_platform_principal()
         return {
-            "PlatformCredential": self.get_platform_credential(),
-            "PlatformPrincipal": self.get_platform_principal()
+            "PlatformCredential": credential,
+            "PlatformPrincipal": principal
         }
         
     def get_platform_credential(self):
-        if self.credential or self.credential != '':
+        if self.credential is not None and self.credential != '':
             return self.credential
         if hasattr(settings, 'SCARFACE_APNS_PRIVATE_KEY'):
             return settings.SCARFACE_APNS_PRIVATE_KEY
         return None
 
     def get_platform_principal(self):
-        if self.principal or self.principal != '':
+        if self.principal is not None and self.principal != '':
             return self.principal
         if hasattr(settings, 'SCARFACE_APNS_CERTIFICATE'):
             return settings.SCARFACE_APNS_CERTIFICATE
