@@ -364,6 +364,8 @@ class Platform(SNSCRUDMixin, models.Model):
     def get_platform_credential(self):
         if self.credential is not None and self.credential != '':
             return self.credential
+        if self.platform == 'APNS_SANDBOX' and hasattr(settings, 'SCARFACE_APNS_SANDBOX_PRIVATE_KEY'):
+            return settings.SCARFACE_APNS_SANDBOX_PRIVATE_KEY
         if hasattr(settings, 'SCARFACE_APNS_PRIVATE_KEY'):
             return settings.SCARFACE_APNS_PRIVATE_KEY
         return None
@@ -371,6 +373,8 @@ class Platform(SNSCRUDMixin, models.Model):
     def get_platform_principal(self):
         if self.principal is not None and self.principal != '':
             return self.principal
+        if self.platform == 'APNS_SANDBOX' and hasattr(settings, 'SCARFACE_APNS_SANDBOX_CERTIFICATE'):
+            return settings.SCARFACE_APNS_SANDBOX_CERTIFICATE
         if hasattr(settings, 'SCARFACE_APNS_CERTIFICATE'):
             return settings.SCARFACE_APNS_CERTIFICATE
         return None
