@@ -65,7 +65,10 @@ class PlatformStrategy(with_metaclass(ABCMeta)):
         }
 
         if message and len(message) > 0:
-            payload['aps']['alert'] = message
+            try:
+                payload['aps']['alert'] = json.loads(message)
+            except ValueError:
+                payload['aps']['alert'] = message
 
         if not badgeCount is None:
             payload['aps'].update({

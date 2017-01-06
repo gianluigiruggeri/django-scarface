@@ -401,7 +401,9 @@ class Platform(SNSCRUDMixin, models.Model):
             raise SNSException(
                 'Failed to register Platform.{0}'.format(response)
             )
-        return self.set_arn_from_response(response)
+        success = self.set_arn_from_response(response)
+        self.save()
+        return success
 
     @DefaultConnection
     def deregister(self, connection=None, save=True):
