@@ -43,7 +43,7 @@ You can extract the SCARFACE_APNS_CERTIFICATE and SCARFACE_APNS_PRIVATE_KEY sett
 python manage.py extract_keys --file=Certificate.p12 --password=<MYPASSWORD>
 ```
 The output can be copied and pasted into your settings file.
-To use APNS and APNS_SANDBOX within the same instance ensure that you rename the extracted APNS_SANDBOX variables to SCARFACE_APNS_SANDBOX_CERTIFICATE and SCARFACE_APNS_SANDBOX_PRIVATE_KEY respectively.
+Note: To use APNS and APNS_SANDBOX within the same instance ensure that you rename the extracted APNS_SANDBOX variables to SCARFACE_APNS_SANDBOX_CERTIFICATE and SCARFACE_APNS_SANDBOX_PRIVATE_KEY respectively.
 
 
 ## Usage
@@ -92,7 +92,7 @@ apple_device = Device.objects.create(
     push_token=<device_push_token>,
     platform=apns_platform
 )
-andorid_device = Device.objects.create(
+android_device = Device.objects.create(
     device_id=<device_id>,
     push_token=<device_push_token>,
     platform=gcm_platform
@@ -119,7 +119,7 @@ Once the platforms, devices and topics have been set up you can register the dev
 topic.register_device(arn_device)
 ```
 
-###  Deregsiter
+###  Deregister
 All the above mentioned classes which support the ``register()`` method can be deregistered by using their ``deregister()`` method. Further, when you delete them, they automatically deregister.
 
 
