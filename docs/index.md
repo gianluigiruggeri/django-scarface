@@ -27,7 +27,7 @@ INSTALLED_APPS = (
 
 | Name | Description | Mandatory | Default |
 |------|-------------|-----------|---------|
-| ``AWS_ACCESS_KEY`` | Acess key of your AWS user*. | Yes | - |
+| ``AWS_ACCESS_KEY`` | Access key of your AWS user*. | Yes | - |
 | ``AWS_SECRET_ACCESS_KEY`` | Secret key of your AWS user. | Yes | - |
 | ``SCARFACE_REGION_NAME`` | The region your SNS application is located | Yes | 'eu-west-1' |
 | ``SCARFACE_LOGGING_ENABLED`` | If true the push messages are logged to the DB.| | ``True`` |
@@ -43,9 +43,11 @@ You can extract the SCARFACE_APNS_CERTIFICATE and SCARFACE_APNS_PRIVATE_KEY sett
 python manage.py extract_keys --file=Certificate.p12 --password=<MYPASSWORD>
 ```
 The output can be copied and pasted into your settings file.
+To use APNS and APNS_SANDBOX within the same instance ensure that you rename the extracted APNS_SANDBOX variables to SCARFACE_APNS_SANDBOX_CERTIFICATE and SCARFACE_APNS_SANDBOX_PRIVATE_KEY respectively.
+
 
 ## Usage
-The code it self is good documented. You may also check the unittests (`tests.py`) or implementation details.
+The code it self is good documented. You may also check the unit tests (`tests.py`) or implementation details.
 
 ## Tutorial
 This is a tutorial how you create AWS Applications, Platforms etc. programmatically. Alternatively you can create the modeinstances in the django admin area.
@@ -82,7 +84,7 @@ The available values for the platform parameter are:
 | ``APNS`` | Apple Push Notification Service |
 | ``APNS_SANDBOX`` | Apple Push Notification Service Sandbox |
 
-### Create Platforms
+### Create Devices
 Having a setup platform you are now ready to register new devices to that platform.
 ```python
 apple_device = Device.objects.create(
