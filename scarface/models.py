@@ -245,7 +245,8 @@ class Device(SNSCRUDMixin, models.Model):
                 'Failed to deregister device.({0})'.format(success)
             )
         self.arn = None
-        if save: self.save()
+        if save:
+            self.save()
         return success
 
     @DefaultConnection
@@ -360,11 +361,12 @@ class Platform(SNSCRUDMixin, models.Model):
             "PlatformCredential": credential,
             "PlatformPrincipal": principal
         }
-        
+
     def get_platform_credential(self):
         if self.credential is not None and self.credential != '':
             return self.credential
-        if self.platform == 'APNS_SANDBOX' and hasattr(settings, 'SCARFACE_APNS_SANDBOX_PRIVATE_KEY'):
+        if (self.platform == 'APNS_SANDBOX' and
+                hasattr(settings, 'SCARFACE_APNS_SANDBOX_PRIVATE_KEY')):
             return settings.SCARFACE_APNS_SANDBOX_PRIVATE_KEY
         if hasattr(settings, 'SCARFACE_APNS_PRIVATE_KEY'):
             return settings.SCARFACE_APNS_PRIVATE_KEY
@@ -373,7 +375,8 @@ class Platform(SNSCRUDMixin, models.Model):
     def get_platform_principal(self):
         if self.principal is not None and self.principal != '':
             return self.principal
-        if self.platform == 'APNS_SANDBOX' and hasattr(settings, 'SCARFACE_APNS_SANDBOX_CERTIFICATE'):
+        if (self.platform == 'APNS_SANDBOX' and
+                hasattr(settings, 'SCARFACE_APNS_SANDBOX_CERTIFICATE')):
             return settings.SCARFACE_APNS_SANDBOX_CERTIFICATE
         if hasattr(settings, 'SCARFACE_APNS_CERTIFICATE'):
             return settings.SCARFACE_APNS_CERTIFICATE
@@ -419,10 +422,11 @@ class Platform(SNSCRUDMixin, models.Model):
         success = connection.delete_platform_application(self.arn)
         if not success:
             SNSException(
-                'Failded to deregister Platform.({0})'.format(success)
+                'Failed to deregister Platform.({0})'.format(success)
             )
         self.arn = None
-        if save: self.save()
+        if save:
+            self.save()
         return success
 
     @DefaultConnection
@@ -514,7 +518,8 @@ class Topic(SNSCRUDMixin, models.Model):
             )
 
         self.arn = None
-        if save: self.save()
+        if save:
+            self.save()
 
         return success
 
@@ -686,5 +691,6 @@ class Subscription(SNSCRUDMixin, models.Model):
                 'Failed to unsubscribe Device from Topic.({0})'.format(success)
             )
         self.arn = None
-        if save: self.save()
+        if save:
+            self.save()
         return success
