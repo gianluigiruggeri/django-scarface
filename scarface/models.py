@@ -625,7 +625,7 @@ class PushMessage(models.Model):
             'badge_count': self.badge_count,
             'sound': self.sound,
             'has_new_content': self.has_new_content,
- +          'notification_type': self.notification_type
+            'notification_type': self.notification_type
         }
         if self.extra_payload:
             d.update(self.extra_payload)
